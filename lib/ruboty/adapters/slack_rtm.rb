@@ -110,11 +110,7 @@ module Ruboty
         end
 
         loop do
-          Thread.start do
-            loop do
-              sleep 30
-            end
-          end
+          sleep 30
         end
       end
 
