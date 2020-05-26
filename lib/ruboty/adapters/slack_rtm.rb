@@ -103,7 +103,7 @@ module Ruboty
             loop do
               @url = nil
               @realtime = nil
-              sleep 3
+              sleep 10
               bind
             end
           end
