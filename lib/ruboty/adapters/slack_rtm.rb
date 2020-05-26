@@ -98,13 +98,14 @@ module Ruboty
           end
         end
 
-        Thread.start do
-          loop do
-            break unless ENV['SLACK_AUTO_RECONNECT']
-            @url = nil
-            @realtime = nil
-            sleep 3
-            bind
+        if ENV['SLACK_AUTO_RECONNECT']
+          Thread.start do
+            loop do
+              @url = nil
+              @realtime = nil
+              sleep 3
+              bind
+            end
           end
         end
 
