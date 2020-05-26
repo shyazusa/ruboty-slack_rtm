@@ -18,7 +18,10 @@ module Ruboty
       def run
         init
         bind
-        connect
+        t = Thread.new do
+          connect
+        end
+        t.join
       end
 
       def say(message)
@@ -95,13 +98,18 @@ module Ruboty
           end
         end
 
+        Thread.start do
+          loop do
+            break unless ENV['SLACK_AUTO_RECONNECT']
+            @url = nil
+            @realtime = nil
+            sleep 3
+            bind
+          end
+        end
+
         loop do
           realtime.main_loop rescue nil
-          break unless ENV['SLACK_AUTO_RECONNECT']
-          @url = nil
-          @realtime = nil
-          sleep 3
-          bind
         end
       end
 
